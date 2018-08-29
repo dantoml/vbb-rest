@@ -2,7 +2,7 @@
 
 const path = require('path')
 const serve = require('serve-static')
-const hafas = require('vbb-hafas')
+const createHafas = require('vbb-hafas')
 const createBaseApi = require('hafas-rest-api')
 
 const stations = require('./lib/stations')
@@ -47,6 +47,7 @@ const createApi = (config, cb) => {
 		})
 		pool.on('error', console.error)
 	} else {
+		const hafas = createHafas('hafas-rest-api: ' + config.name)
 		setImmediate(cb, null, createBaseApi(hafas, config, attachMiddleware))
 	}
 }
